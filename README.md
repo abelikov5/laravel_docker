@@ -2,7 +2,7 @@
 
 ## Start project
 
-Clone project [project](https://github.com/abelikov5/1bit_search.git) and follow to folder project.
+Clone [project](https://github.com/abelikov5/1bit_search.git) and follow to folder project.
 
 ```
 # run make file:
