@@ -1,74 +1,132 @@
 <template>
     <div class="b_container">
         <div class="b_search">
-            <input type="search" placeholder="Поиск по продуктам" class="b_search_input">
-            <button class="btn btn-primary">Найти</button>
+            <input type="search" placeholder="Поиск по продуктам" class="b_search_input" v-model="search">
+            <button class="btn btn-primary" @click="call_api">Найти</button>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-            <label class="form-check-label" for="flexCheckDefault">
-                Название
-            </label>
+        <h3>Укажите тип поиска:</h3>
+        <div class="search_type">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="name" v-model="search_type" id="flexCheckDefault" checked  name="radio">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Название
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="code" v-model="search_type" id="flexCheckChecked"  name="radio">
+                <label class="form-check-label" for="flexCheckChecked">
+                    Код
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" v-model="search_type" value="color" id="b_code" name="radio">
+                <label class="form-check-label" for="b_code">
+                    Цвет
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" v-model="search_type" value="size" id="b_size" name="radio">
+                <label class="form-check-label" for="b_size">
+                    Размер
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" v-model="search_type" value="description" id="b_description" name="radio">
+                <label class="form-check-label" for="b_description">
+                    Описание
+                </label>
+            </div>
+            <div class="b_price form-check">
+                <input class="form-check-input" type="radio" v-model="search_type" value="price" id="b_price" name="radio">
+                <label class="form-check-label" for="b_price">&nbsp;
+                    Цена
+                </label>&nbsp;
+                от&nbsp;<input type="number" class="b_price_from" v-model="price_from">&nbsp;
+                до&nbsp;<input type="number" class="b_price_from" v-model="price_to">&nbsp;
+            </div>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" >
-            <label class="form-check-label" for="flexCheckChecked">
-                Код
-            </label>
+
+        <div class="d-flex justify-content-center" v-if="spinner">
+            <div class="spinner-border" role="status">
+                <span class="sr-only"></span>
+            </div>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="b_code">
-            <label class="form-check-label" for="b_code">
-                Цвет
-            </label>
-        </div>
-        <div class="b_price">
-            <input class="form-check-input" type="checkbox" value="" id="b_price">
-            <label class="form-check-label" for="b_price">
-                Цена
-            </label>
-            от <input type="number" class="b_price_from">
-            до <input type="number" class="b_price_from">
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="b_size">
-            <label class="form-check-label" for="b_size">
-                Размер
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="b_description">
-            <label class="form-check-label" for="b_description">
-                Описание
-            </label>
+
+
+        <div class="search_data" v-if="products">
+            <h3>По вашему запросу найдено <b>{{products.length}} </b> записей</h3>
+            <div v-for="item in products">
+                <product-item :product="item"/>
+            </div>
         </div>
 
     </div>
 </template>
 
 <script>
+import axios from "axios";
+import ProductItem from "./components/ProductItem.vue";
+
 export default {
+    components: {ProductItem},
     data() {
         return {
             active: true,
+            products: '',
+            search: '',
+            search_type: 'name',
+            spinner: false,
+            price_from: '',
+            price_to: '',
         }
     },
+    methods: {
+        call_api() {
+            this.products = '';
+            this.spinner  = true;
+            axios.post("/api/search", null, { params: {
+                    "search": this.search, 'type': this.search_type,
+                    'from': this.price_from, 'to': this.price_to
+                }})
+                .then(response => {
+                    console.log(response);
+                    this.spinner = false;
+                    if(response.data.product) {
+                        this.products = response.data.product.slice(0);
+                    }
+                });
+        }
+    }
 
 }
 </script>
 
 <style>
+.form-check {
+    min-width: 120px;
+}
+.search_type {
+    display: flex;
+    flex-wrap: wrap;
+}
+.search_data {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .b_price {
     display: flex;
+    flex-wrap: wrap;
 
 }
 .b_price_from {
-    width: 40px;
+    width: 70px;
 }
 
 .b_container {
     padding: 100px 0;
-    width: 400px;
+    width: 600px;
     margin: 0 auto;
 }
 .b_search {
