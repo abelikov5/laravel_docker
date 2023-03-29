@@ -8,11 +8,10 @@ Clone [project](https://github.com/abelikov5/1bit_search.git) and follow to fold
 # run make file:
 make setup
 
+```
 # after setup finished visit [localhost:8000](http://localhost:8000/)
 
-#enjoy ;)
-
-```
+# enjoy ;)
 
 ## Project ScreenCast
 
