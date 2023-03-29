@@ -3,6 +3,7 @@ setup:
 	@make build
 	@make up
 	@make composer-update
+	@make data
 build:
 	docker-compose build --no-cache --force-rm
 stop:
@@ -13,4 +14,4 @@ composer-update:
 	docker exec 1bit bash -c "composer update"
 data:
 	docker exec 1bit bash -c "php artisan migrate"
-	docker exec 1bit bash -c "php artisan db:seed"
+	docker exec 1bit bash -c "php artisan migrate --seed"
