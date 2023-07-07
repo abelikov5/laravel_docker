@@ -15,4 +15,3 @@ composer-update:
 data:
 	docker exec 1bit bash -c "cp .env.example .env"
 	docker exec 1bit bash -c "php artisan migrate"
-	docker exec 1bit bash -c "php artisan migrate --seed"

@@ -8,6 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/laravel-app/tests" isTestSource="true" packagePrefix="Tests\" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-app/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-app/tests/Feature" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/laravel-app/tests/Unit" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/symfony/string" />
@@ -116,6 +119,8 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/league/flysystem-local" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel-app/vendor/symfony/polyfill-php83" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -17,5 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::post('api/search', [SearchController::class,'search'])->name('search_page');
