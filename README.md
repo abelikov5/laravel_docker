@@ -1,4 +1,4 @@
-## 1bit search panel
+## laravel 10, Docker
 
 ## Start project
 
